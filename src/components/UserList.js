@@ -1,36 +1,26 @@
 import React from 'react';
 
+function User({user, onRemove, onToggle}) {
 
-function User({user}) {
     return (
       <div>
-          <b>{user.username}</b> <span>({user.email})</span>
+          <b
+            style={{
+                cursor: 'pointer',
+                color: user.active ? 'green' : 'black'
+            }}
+          onClick={() => onToggle(user.id)}
+          >{user.username}</b> <span>({user.email})</span>
+          <button onClick={() => onRemove(user.id)}>삭제</button>
       </div>
     );
 }
 
-function UserList() {
-    const users = [
-        {
-            id: 1,
-            username: 'velopert',
-            email: 'public.velopert@gmail.com'
-        },
-        {
-            id: 2,
-            username: 'tester',
-            email: 'tester@gmail.com'
-        },
-        {
-            id: 3,
-            username: 'minjun',
-            email: 'shsha4@gmail.com'
-        }
-    ];
+function UserList({users, onRemove, onToggle}) {
     return(
       <div>
-          {users.map((user, index) =>
-              <User user={user} key={index} />
+          {users.map((user, idx) =>
+              <User user={user} key={idx} onRemove={onRemove} onToggle={onToggle}/>
           )}
       </div>
     );
